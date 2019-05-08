@@ -34,12 +34,15 @@ import java.util.List;
  */
 
 public class FilePickerActivity extends AppCompatActivity {
+    public static final String INTENT_MAX_SIZE = "INTENT_MAX_SIZE";
+
     private RecyclerView recyclerView;
     private FilePickerAdapter adapter;
     private Toolbar toolbar;
     private TextView txtNull;
     private FloatingActionButton btnFilter;
     private List<String> itemfilter;
+    private long maxSize;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class FilePickerActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.clrPrimaryDrakLib));
         }
+
+        maxSize = getIntent().getLongExtra(INTENT_MAX_SIZE, 0);
+
         setContentView(R.layout.activitymain);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txtNull = (TextView) findViewById(R.id.txtNull);
@@ -56,9 +62,7 @@ public class FilePickerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         itemfilter = new ArrayList<>();
         itemfilter.add(".pdf");
-        itemfilter.add(".txt");
-        itemfilter.add(".docx");
-        itemfilter.add(".doc");
+        itemfilter.add(".pdf");
         if (PermissionUtils.requestPermission(this, 1, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             getDocument();
         }
@@ -82,7 +86,7 @@ public class FilePickerActivity extends AppCompatActivity {
 
     public void getDocument() {
         MediaStoreHelper mediaStoreHelper = new MediaStoreHelper();
-        mediaStoreHelper.getDocs(this,itemfilter, new FileResultCallback<Document>() {
+        mediaStoreHelper.getDocs(this, maxSize,itemfilter, new FileResultCallback<Document>() {
             @Override
             public void onResultCallback(List<Document> files) {
                 recyclerView = (RecyclerView) findViewById(R.id.recycleMain);
@@ -92,7 +96,7 @@ public class FilePickerActivity extends AppCompatActivity {
                 if (files.isEmpty()) {
                     txtNull.setVisibility(View.VISIBLE);
                 }
-                Log.e("data","loadagain");
+                Log.e("data", "loadagain");
             }
         });
 

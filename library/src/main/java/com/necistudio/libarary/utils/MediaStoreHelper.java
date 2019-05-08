@@ -10,8 +10,7 @@ import java.util.List;
 
 public class MediaStoreHelper {
 
-  public static void getDocs(FragmentActivity activity, List<String> itemfilter, FileResultCallback<Document> fileResultCallback)
-  {
-    new DocScannerTask(activity,fileResultCallback,itemfilter).execute();
-  }
+    public static void getDocs(FragmentActivity activity, long maxSize, List<String> itemfilter, FileResultCallback<Document> fileResultCallback) {
+        new DocScannerTask(activity, fileResultCallback, maxSize,itemfilter).execute();
+    }
 }

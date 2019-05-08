@@ -48,5 +48,6 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="20dp"
         android:src="@mipmap/ic_create"
+        android:visibility="gone"
         app:fabSize="normal" />
 </android.support.design.widget.CoordinatorLayout>

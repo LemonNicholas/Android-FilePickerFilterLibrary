@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.necistudio.libarary.cursors.loadercallback.FileResultCallback;
 import com.necistudio.libarary.item.Document;
@@ -19,7 +18,7 @@ import static android.provider.MediaStore.MediaColumns.DATA;
 /**
  * Created by droidNinja on 01/08/16.
  */
-public class DocScannerTask extends AsyncTask<Void,Void,List<Document>> {
+public class DocScannerTask extends AsyncTask<Void, Void, List<Document>> {
 
     final String[] DOC_PROJECTION = {
             MediaStore.Images.Media._ID,
@@ -31,26 +30,27 @@ public class DocScannerTask extends AsyncTask<Void,Void,List<Document>> {
     };
     private final FileResultCallback<Document> resultCallback;
     List<String> itemfilter;
-    String[] selectionArgs ;
+    String[] selectionArgs;
+    long maxSize;
 
     private final Context context;
 
-    public DocScannerTask(Context context, FileResultCallback<Document> fileResultCallback,List<String> itemfilter)
-    {
+    public DocScannerTask(Context context, FileResultCallback<Document> fileResultCallback, long maxSize, List<String> itemfilter) {
         this.context = context;
         this.resultCallback = fileResultCallback;
         this.itemfilter = itemfilter;
+        this.maxSize = maxSize;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if(itemfilter.isEmpty()){
+        if (itemfilter.isEmpty()) {
             selectionArgs = new String[0];
-        }else {
-            selectionArgs = new String[itemfilter.size()-1];
-            for(int a=0;a<itemfilter.size()-1;a++){
-                selectionArgs[a]=itemfilter.get(a);
+        } else {
+            selectionArgs = new String[itemfilter.size() - 1];
+            for (int a = 0; a < itemfilter.size() - 1; a++) {
+                selectionArgs[a] = itemfilter.get(a);
             }
         }
     }
@@ -65,8 +65,8 @@ public class DocScannerTask extends AsyncTask<Void,Void,List<Document>> {
                 null,
                 MediaStore.Files.FileColumns.DATE_ADDED + " DESC");
 
-        if(cursor!=null) {
-           documents = getDocumentFromCursor(cursor);
+        if (cursor != null) {
+            documents = getDocumentFromCursor(cursor);
             cursor.close();
         }
 
@@ -82,27 +82,32 @@ public class DocScannerTask extends AsyncTask<Void,Void,List<Document>> {
         }
     }
 
-    private ArrayList<Document> getDocumentFromCursor(Cursor data)
-    {
+    private ArrayList<Document> getDocumentFromCursor(Cursor data) {
         ArrayList<Document> documents = new ArrayList<>();
         while (data.moveToNext()) {
 
-            int imageId  = data.getInt(data.getColumnIndexOrThrow(_ID));
+            int imageId = data.getInt(data.getColumnIndexOrThrow(_ID));
             String path = data.getString(data.getColumnIndexOrThrow(DATA));
             String title = data.getString(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.TITLE));
 
-            if(path!=null && contains(selectionArgs,path)) {
+            if (path != null && contains(selectionArgs, path)) {
                 Document document = new Document(imageId, title, path);
 
                 String mimeType = data.getString(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MIME_TYPE));
                 if (mimeType != null && !TextUtils.isEmpty(mimeType))
                     document.setMimeType(mimeType);
-                else
-                {
+                else {
                     document.setMimeType("");
                 }
 
                 document.setSize(data.getString(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE)));
+
+                try {
+                    long documentSize = Long.valueOf(document.getSize());
+                    if (documentSize > (maxSize)) continue;
+                } catch (Exception e) {
+
+                }
 
                 if (!documents.contains(document))
                     documents.add(document);

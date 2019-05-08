@@ -2,8 +2,8 @@ package com.necistudio.filepickerdocumentlibrary;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,11 +21,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnPick = (Button) findViewById(R.id.btnPick);
-        txtPath = (TextView)findViewById(R.id.txtPath);
+        txtPath = (TextView) findViewById(R.id.txtPath);
         btnPick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),FilePickerActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FilePickerActivity.class);
+                intent.putExtra(FilePickerActivity.INTENT_MAX_SIZE, 1024 * 1024 * 10);
                 startActivityForResult(intent, 1);
             }
         });
@@ -38,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 String path = data.getStringExtra("path");
                 txtPath.setText(path);
-                Log.e("data",path);
-            }else{
-                Log.e("data","cance");
+                Log.e("data", path);
+            } else {
+                Log.e("data", "cance");
             }
         }
     }
