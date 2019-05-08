@@ -104,7 +104,7 @@ public class DocScannerTask extends AsyncTask<Void, Void, List<Document>> {
 
                 try {
                     long documentSize = Long.valueOf(document.getSize());
-                    if (documentSize > (maxSize)) continue;
+                    if (maxSize > 0 && documentSize > (maxSize)) continue;
                 } catch (Exception e) {
 
                 }

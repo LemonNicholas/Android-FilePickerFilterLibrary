@@ -12,7 +12,8 @@
         <activity
             android:name=".FilePickerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
 
         </activity>
     </application>

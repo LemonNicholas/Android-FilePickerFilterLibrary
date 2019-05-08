@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -60,6 +61,7 @@ public class FilePickerActivity extends AppCompatActivity {
         txtNull = (TextView) findViewById(R.id.txtNull);
         btnFilter = (FloatingActionButton) findViewById(R.id.btnFilter);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         itemfilter = new ArrayList<>();
         itemfilter.add(".pdf");
         itemfilter.add(".pdf");
@@ -86,7 +88,7 @@ public class FilePickerActivity extends AppCompatActivity {
 
     public void getDocument() {
         MediaStoreHelper mediaStoreHelper = new MediaStoreHelper();
-        mediaStoreHelper.getDocs(this, maxSize,itemfilter, new FileResultCallback<Document>() {
+        mediaStoreHelper.getDocs(this, maxSize, itemfilter, new FileResultCallback<Document>() {
             @Override
             public void onResultCallback(List<Document> files) {
                 recyclerView = (RecyclerView) findViewById(R.id.recycleMain);
@@ -108,5 +110,14 @@ public class FilePickerActivity extends AppCompatActivity {
         if (PermissionUtils.permissionGranted(requestCode, 1, grantResults)) {
             getDocument();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

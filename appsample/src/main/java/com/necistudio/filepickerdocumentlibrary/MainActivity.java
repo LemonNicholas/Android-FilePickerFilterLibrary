@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
         btnPick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long size = 1024 * 1024 * 10;
                 Intent intent = new Intent(getApplicationContext(), FilePickerActivity.class);
-                intent.putExtra(FilePickerActivity.INTENT_MAX_SIZE, 1024 * 1024 * 10);
+                intent.putExtra(FilePickerActivity.INTENT_MAX_SIZE, size);
                 startActivityForResult(intent, 1);
             }
         });
