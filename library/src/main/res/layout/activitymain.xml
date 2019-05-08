@@ -17,7 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/clrPrimaryLib"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="Choose Document" />
+            app:title="@string/document" />
 
     </android.support.design.widget.AppBarLayout>
 
