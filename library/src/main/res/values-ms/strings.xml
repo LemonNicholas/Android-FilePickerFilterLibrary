@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">libarary</string>
     <string name="document">dokumen</string>
     <string name="file_not_found">Fail tidak dijumpai</string>
 

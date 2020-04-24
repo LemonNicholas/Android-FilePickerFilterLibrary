@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">libarary</string>
+    <string name="app_name" translatable="false">library</string>
     <string name="document">Document</string>
     <string name="file_not_found">File not found</string>
 

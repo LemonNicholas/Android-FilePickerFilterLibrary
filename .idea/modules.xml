@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Android-FilePickerFilterLibrary.iml" filepath="$PROJECT_DIR$/Android-FilePickerFilterLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Android-FilePickerFilterLibrary.iml" filepath="$PROJECT_DIR$/Android-FilePickerFilterLibrary.iml" group="Android-FilePickerFilterLibrary" />
       <module fileurl="file://$PROJECT_DIR$/FilePickerDocumentLibrary.iml" filepath="$PROJECT_DIR$/FilePickerDocumentLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/appsample/appsample.iml" filepath="$PROJECT_DIR$/appsample/appsample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/appsample/appsample.iml" filepath="$PROJECT_DIR$/appsample/appsample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appsample/appsample.iml" filepath="$PROJECT_DIR$/appsample/appsample.iml" group="Android-FilePickerFilterLibrary/appsample" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" group="Android-FilePickerFilterLibrary/library" />
     </modules>
   </component>
 </project>

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">libarary</string>
     <string name="document">文件</string>
     <string name="file_not_found">文件未找到</string>
 
